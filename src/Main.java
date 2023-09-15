@@ -11,7 +11,7 @@ public class Main {
          */
         Scanner sc = new Scanner(System.in);
         int filas = 9, columnas = 9;
-        int tablero[][] = new int[filas][columnas];
+        int[][] tablero = new int[filas][columnas];
         Random random = new Random();
 
         /**FOR 1: Va de 0 a menor estricto que 10 para poner las 10, en función de las 10
@@ -36,6 +36,145 @@ public class Main {
             else i -= 1;
         }
 
+        /**FOR 2:
+         * el primer y segundo for es para recorrer la matris por filas (el for de arriba) y colomnas (el for anidado)
+         * el primer if evalua la posiciion, si hay un 9 procedse a sumar 1 a todas las posiciones adyacentes (menos las que ya tienen 9)
+         * devido a que 9 es la bombastic
+         * en el caso en el que la bomba este en alguna de las paredes de la matriz (incluyendo esquinas)
+         * va a pasar por una cadena de if que evalua cual es el caso y se salta la posiciones que esten por fuera de la matriz
+         */
+
+        for (int i = 0; i < tablero.length; i++) {
+            for (int j = 0; j < tablero.length; j++) {
+                if (tablero[i][j] == 9) {
+                    if (i - 1 < 0) {
+                        if (j - 1 < 0) {
+                            if(tablero[i + 1][j] != 9)
+                                tablero[i + 1][j] += 1;
+                            if (tablero[i + 1][j + 1] != 9)
+                                tablero[i + 1][j + 1]+= 1;
+                            if (tablero[i][j + 1] != 9)
+                                tablero[i][j + 1]+= 1;
+                        } else if (j + 1 > columnas - 1) {
+                            if (tablero[i + 1][j] != 9)
+                                tablero[i + 1][j]+= 1;
+                            if (tablero[i + 1][j - 1] != 9)
+                                tablero[i + 1][j - 1]+= 1;
+                            if (tablero[i][j - 1] !=9)
+                                tablero[i][j - 1]+= 1;
+                        } else {
+                            if (tablero[i + 1][j] != 9)
+                                tablero[i + 1][j]+= 1;
+                            if (tablero[i + 1][j + 1] !=9)
+                                tablero[i + 1][j + 1]+= 1;
+                            if (tablero[i + 1][j - 1] !=9)
+                                tablero[i + 1][j - 1]+= 1;
+                            if (tablero[i][j + 1] != 9)
+                                tablero[i][j + 1]+= 1;
+                            if (tablero[i][j - 1] != 9)
+                                tablero[i][j - 1]+= 1;
+                        }
+                    } else if (i + 1 > filas - 1) {
+                        if (j - 1 < 0) {
+                            if (tablero[i - 1][j] !=9)
+                                tablero[i - 1][j]+= 1;
+                            if (tablero[i - 1][j + 1] !=9)
+                                tablero[i - 1][j + 1]+= 1;
+                            if (tablero[i][j + 1] !=9)
+                                tablero[i][j + 1]+= 1;
+                        } else if (j + 1 > columnas - 1) {
+                            if (tablero[i - 1][j] != 9)
+                                tablero[i - 1][j]+= 1;
+                            if (tablero[i - 1][j - 1] !=9)
+                                tablero[i - 1][j - 1]+= 1;
+                            if (tablero[i][j - 1] !=9)
+                                tablero[i][j - 1]+= 1;
+                        } else {
+                            if (tablero[i - 1][j] != 9)
+                                tablero[i - 1][j]+= 1;
+                            if (tablero[i - 1][j + 1] !=9)
+                                tablero[i - 1][j + 1]+= 1;
+                            if (tablero[i - 1][j - 1] != 9)
+                                tablero[i - 1][j - 1]+= 1;
+                            if (tablero[i][j + 1] != 9)
+                                tablero[i][j + 1]+= 1;
+                            if (tablero[i][j - 1] != 9)
+                                tablero[i][j - 1]+= 1;
+                        }
+                    } else if (j - 1 < 0) {
+                        if (i - 1 < 0) {
+                            if (tablero[i + 1][j] != 9)
+                                tablero[i + 1][j]+= 1;
+                            if (tablero[i + 1][j + 1] !=9)
+                                tablero[i + 1][j + 1]+= 1;
+                            if (tablero[i][j + 1] != 9)
+                                tablero[i][j + 1]+= 1;
+                        } else if (i + 1 > columnas - 1) {
+                            if (tablero[i - 1][j] != 9)
+                                tablero[i - 1][j]+= 1;
+                            if (tablero[i - 1][j + 1] !=9)
+                                tablero[i - 1][j + 1] +=1;
+                            if (tablero[i][j + 1] !=9)
+                                tablero[i][j + 1] += 1;
+                        } else {
+                            if (tablero[i + 1][j] !=9)
+                                tablero[i + 1][j] +=1;
+                            if (tablero[i + 1][j + 1] !=9)
+                                tablero[i + 1][j + 1] +=1;
+                            if (tablero[i - 1][j] !=9)
+                                tablero[i - 1][j] += 1;
+                            if (tablero[i - 1][j + 1] != 9)
+                                tablero[i - 1][j + 1] += 1;
+                            if (tablero[i - 1][j + 1] !=9)
+                                tablero[i - 1][j + 1] += 1;
+                            if (tablero[i][j + 1] != 9)
+                                tablero[i][j + 1] += 1;
+                        }
+                    } else if (j + 1 > columnas - 1) {
+                        if (i - 1 < 0) {
+                            if (tablero[i + 1][j] != 9)
+                                tablero[i + 1][j] += 1;
+                            if (tablero[i + 1][j - 1] != 9)
+                                tablero[i][j - 1] += 1;
+                        } else if (i + 1 > columnas - 1) {
+                            if (tablero[i - 1][j] != 9)
+                                tablero[i - 1][j - 1] += 1;
+                            if (tablero[i][j - 1] !=9)
+                                tablero[i][j - 1] += 1;
+                        } else {
+                            if (tablero[i + 1][j] !=9)
+                                tablero[i + 1][j] += 1;
+                            if (tablero[i + 1][j - 1] != 9)
+                                tablero[i + 1][j - 1] +=1;
+                            if (tablero[i - 1][j] != 9)
+                                tablero[i - 1][j] += 1;
+                            if (tablero[i - 1][j - 1] != 9)
+                                tablero[i - 1][j - 1] +=1;
+                            if (tablero[i][j - 1] != 9)
+                                tablero[i][j - 1] += 1;
+                        }
+                    } else {
+                        if (tablero[i + 1][j] != 9)
+                            tablero[i + 1][j] += 1;
+                        if (tablero[i + 1][j + 1] != 9)
+                            tablero[i + 1][j + 1] += 1;
+                        if (tablero[i + 1][j - 1] != 9)
+                            tablero[i + 1][j - 1] += 1;
+                        if (tablero[i - 1][j] != 9)
+                            tablero[i - 1][j] += 1;
+                        if (tablero[i - 1][j + 1] != 9)
+                            tablero[i - 1][j + 1] += 1;
+                        if (tablero[i - 1][j - 1] != 9)
+                            tablero[i - 1][j - 1] += 1;
+                        if (tablero[i][j + 1] != 9)
+                            tablero[i][j + 1] += 1;
+                        if (tablero[i][j - 1] != 9)
+                            tablero[i][j - 1] += 1;
+                    }
+                }
+            }
+        }
+
         /**
          * Imprime la matriz
          */
@@ -46,8 +185,8 @@ public class Main {
             System.out.println();
         }
         /**
-         * Se usó el número 9 porque a la hora de generar losdemás números,
-         * El más alto que puede existir es el 8, que son las 8 posiciones que rodean a la comba
+         * Se usó el número 9 porque a la hora de generar los demás números,
+         * el más alto que puede existir es el 8, que son las 8 posiciones que rodean a la bomba
          * UwU
          */
     }
