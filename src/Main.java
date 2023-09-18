@@ -1,8 +1,13 @@
 import java.util.Scanner;
 import java.util.Random;
 public class Main {
+    static int filas = 9, columnas = 9;
+    static int[][] tablero = new int[filas][columnas];
     public static void main(String[] args) {
+        GeneracionDeTablero(tablero);
 
+    }
+    public static int GeneracionDeTablero(int[][]tablero){
         //Solo general el nivel 1 (Tablero 9 x 9 y 10 bombas)
 
         /**Declaración de variables para el tamaño de la matriz
@@ -10,8 +15,6 @@ public class Main {
          * Declaración de Scanner y de Random
          */
         Scanner sc = new Scanner(System.in);
-        int filas = 9, columnas = 9;
-        int[][] tablero = new int[filas][columnas];
         Random random = new Random();
 
         /**FOR 1: Va de 0 a menor estricto que 10 para poner las 10, en función de las 10
@@ -174,20 +177,11 @@ public class Main {
                 }
             }
         }
-
-        /**
-         * Imprime la matriz
-         */
-        for (int i = 0; i < tablero.length; i++) {
-            for (int j = 0; j < tablero[i].length; j++) {
-                System.out.print(tablero[i][j] + " ");
-            }
-            System.out.println();
-        }
         /**
          * Se usó el número 9 porque a la hora de generar los demás números,
          * el más alto que puede existir es el 8, que son las 8 posiciones que rodean a la bomba
          * UwU
          */
+        return tablero.length;
     }
 }
