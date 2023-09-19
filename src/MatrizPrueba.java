@@ -2,16 +2,17 @@ import java.util.Scanner;
 
 public class MatrizPrueba {
     static String NombreJugador;
-    static int filas = 9, columnas = 9, PosicionFila = 0, PosicionColumna = 0;
+    static int filas = 9, columnas = 9, PosicionFila = 0, PosicionColumna = 0,opcion = 0;
     static Scanner lector = new Scanner(System.in);
-    static int[][] tablero = new int[filas][columnas];
+    static int[][] tableroJuego = new int[filas][columnas];
+    static int[][] tableroOculto = new int[filas][columnas];
+    static boolean SigueJugando = true;
 
     public static void main(String[] args) {
         menu();
     }
 
     public static void menu() {
-        int opcion;
         System.out.println("\t\t\t\t\t\t\t¡¡BIENVENIDO AL JUEGO DE BUSCAMINAS!\n\n");
         System.out.println("INGRESA TU NOMBRE ");
         NombreJugador = lector.next();
@@ -33,7 +34,7 @@ public class MatrizPrueba {
                     break;
                 case 2:
                     System.out.println("¡En hora buena " + NombreJugador + "! es hora de jugar preparado.\n");
-                    InicioJuego(tablero);
+                    InicioJuego(tableroOculto);
                     break;
                 case 3:
                     System.out.println("Gracias por jugar que tenga un excelente día.");
@@ -46,101 +47,106 @@ public class MatrizPrueba {
         } while (opcion != 3);
     }
 
-    public static int InicioJuego(int[][] tablero) {
-        int FilaMina = 0, ColumnaMina = 0;
-        String Gano = "1", Perdio = "0";
+    public static void InicioJuego(int[][] tableroOculto) {
         Main objeto = new Main();
-        objeto.GeneracionDeTablero(tablero);
+        objeto.GeneracionDeTablero(tableroOculto);
         for (int i = 0; i < filas; i++) {
             for (int j = 0; j < columnas; j++) {
-                tablero[i][j] = tablero[i][j];
+                tableroOculto[i][j] = tableroOculto[i][j];
             }
         }
         System.out.println("Este es el tablero en el cuál estas jugando.");
-        MatrizVacia();
-        System.out.println("\nIngresa la posición primero de la fila y despúes la columna.");
-        System.out.print("Fila:");
-        PosicionFila = lector.nextInt();
-        System.out.print("Columna:");
-        PosicionColumna = lector.nextInt();
-        if (PosicionFila >= 0 && PosicionFila < 9 && PosicionColumna >= 0 && PosicionColumna < 9) {
-            if (tablero[PosicionFila][PosicionColumna] == 9) {
-                EvaluacionPierdeJugador(tablero);
-            } else {
-                while (true) {
-                    EvaluacionJugador(tablero);
-                    System.out.println("\n¡Muy bien " + NombreJugador + "! Ahora ingresa la siguiente posición.");
-                    System.out.print("Fila:");
-                    PosicionFila = lector.nextInt();
-                    System.out.print("Columna:");
-                    PosicionColumna = lector.nextInt();
-
-                }
-            }
-        }
-        return tablero.length;
-    }
-
-    public static int EvaluacionPierdeJugador(int[][] tablero) {
-        if (tablero[PosicionFila][PosicionColumna] == 9) {
-            for (int i = 0; i < tablero.length; i++) {
-                for (int j = 0; j < tablero.length; j++) {
-                    System.out.println("¡Oh no " + NombreJugador + "! Has tenido la mala suerte de seleccionar una mina :(");
-                    ImprimirMatriz(tablero);
-                }
-            }
-            System.out.println("Buena suerte la proxima vez " + NombreJugador + " :)");
-        }
-        return tablero.length;
-    }
-
-    public static int EvaluacionJugador(int[][] tablero) {
-        if (tablero[PosicionFila][PosicionColumna] == 0) {
-            for (int i = 0; i < tablero.length; i++) {
-                for (int j = 0; j < tablero[i].length; j++) {
-                    if (Math.abs(i - PosicionFila) <= 1 && Math.abs(j - PosicionColumna) <= 1) {
-                        if (tablero[i][j] == 9) {
-                            System.out.print("|*|");
-                        } else
-                            System.out.print("|" + tablero[i][j] + "|");
-                    } else {
-                        System.out.print("|*|");
-                    }
-                }
-                System.out.println();
-            }
-        } else {
-            for (int i = 0; i < tablero.length; i++) {
-                for (int j = 0; j < tablero.length; j++) {
-                    if (i == PosicionFila && j == PosicionColumna) {
-                        System.out.print("|" + tablero[i][j] + "|");
-                    } else
-                        System.out.print("|*|");
-
-                }
-                System.out.println();
-            }
-        }
-        return tablero.length;
-    }
-
-    public static void ImprimirMatriz(int[][] tablero) {
-        for (int i = 0; i < tablero.length; i++) {
-            for (int j = 0; j < tablero[i].length; j++) {
-                System.out.print("|" + tablero[i][j] + "|");
-            }
-            System.out.println();
-        }
-    }
-
-    public static int MatrizVacia() {
-        char[][] MatrizVacia = new char[filas][columnas];
         for (int i = 0; i < filas; i++) {
             for (int j = 0; j < columnas; j++) {
                 System.out.print("|*|");
             }
             System.out.println();
         }
-        return MatrizVacia.length;
+        System.out.println("\nIngresa la posición primero de la fila y despúes la columna.");
+        System.out.print("Fila:");
+        PosicionFila = lector.nextInt();
+        System.out.print("Columna:");
+        PosicionColumna = lector.nextInt();
+        while (SigueJugando) {
+            if (PosicionFila >= 0 && PosicionFila < 9 && PosicionColumna >= 0 && PosicionColumna < 9) {
+                if (tableroOculto[PosicionFila][PosicionColumna] == 9) {
+                    EvaluacionPierdeJugador(tableroOculto);
+                    SigueJugando = false;
+                } else if (tableroOculto[PosicionFila][PosicionColumna] == 0){
+                    EvaluacionJugador0(tableroOculto);
+                    MenuDeJugador(tableroOculto);
+                    SigueJugando = false;
+                }
+                else {
+                    EvaluacionJugador(tableroOculto);
+                    MenuDeJugador(tableroOculto);
+                    SigueJugando = false;
+                }
+            }
+        }
+    }
+    public static void MenuDeJugador(int[][] tableroOculto) {
+        System.out.println("Muy bien " + NombreJugador + " elige una de las siguientes opciones.");
+        System.out.println("1. Ingresar otra posición.");
+        System.out.println("2. Ingresar una mina.");
+        opcion = lector.nextInt();
+        switch (opcion) {
+            case 1:
+
+                break;
+            case 2:
+                System.out.print("Fila:");
+                PosicionFila = lector.nextInt();
+                System.out.print("Columna:");
+                PosicionColumna = lector.nextInt();
+                break;
+            default:
+                System.out.println("Ingrese una opcion que este dentro del menu.");
+                System.out.println("--------------------------------------------");
+                break;
+        }
+
+    }
+
+    public static void EvaluacionPierdeJugador(int[][] tableroOculto) {
+        System.out.println("¡Oh no " + NombreJugador + "! Has tenido la mala suerte de seleccionar una mina :(");
+        System.out.println("Buena suerte la proxima vez " + NombreJugador + " :)");
+        for (int i = 0; i < tableroOculto.length; i++) {
+            for (int j = 0; j < tableroOculto.length; j++) {
+                System.out.print("|" + tableroOculto[i][j] + "|");
+            }
+            System.out.println();
+        }
+    }
+
+    public static void EvaluacionJugador0(int[][] tablero) {
+        for (int i = 0; i < tablero.length; i++) {
+            for (int j = 0; j < tablero[i].length; j++) {
+                if (Math.abs(i - PosicionFila) <= 1 && Math.abs(j - PosicionColumna) <= 1) {
+                    if (tablero[i][j] == 9) {
+                        System.out.print("|*|");
+                    } else
+                        System.out.print("|" + tablero[i][j] + "|");
+                } else {
+                    System.out.print("|*|");
+                }
+            }
+            System.out.println();
+        }
+
+    }
+
+    public static void EvaluacionJugador(int[][] tableroOculto) {
+        for (int i = 0; i < tableroOculto.length; i++) {
+            for (int j = 0; j < tableroOculto.length; j++) {
+                if (i == PosicionFila && j == PosicionColumna) {
+                    System.out.print("|" + tableroOculto[i][j] + "|");
+                } else
+                    System.out.print("|*|");
+
+            }
+            System.out.println();
+        }
     }
 }
+
