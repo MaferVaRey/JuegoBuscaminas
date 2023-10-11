@@ -1,5 +1,5 @@
 import java.util.Random;
-public class Main {
+public class GeneracionTablero {
     static int filas = 9, columnas = 9;
     static int[][] tablero = new int[filas][columnas];
 
