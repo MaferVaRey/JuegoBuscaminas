@@ -30,7 +30,7 @@ public class JuegoBuscaminas {
                     break;
                 case 2:
                     System.out.println("¡En hora buena " + nombreJugador + "! Es hora de jugar. Prepárate.\n");
-                    inicializacionDeTablero();
+                    inicializarTableros();
                     inicioJuego();
                     break;
                 case 3:
@@ -44,7 +44,7 @@ public class JuegoBuscaminas {
         } while (opcion != 3);
     }
 
-    public static void inicializacionDeTablero() {
+    public static void inicializarTableros() {
         // Llamamos a la clase Tablero la cual genera un tablero aleatorio
         //y le pasamos sus componentes a la matriz tableroOculto.
         GeneracionTablero objeto = new GeneracionTablero();
@@ -67,45 +67,61 @@ public class JuegoBuscaminas {
     public static void inicioJuego() {
         while (!juegoTerminado) {
             mostrarTablero();
-            // Solicitamos los datos de la fila y la columna al usuario.
-            System.out.println("\nIngresa la posición primero la fila y después la columna.");
-            System.out.print("Fila: ");
-            int fila = lector.nextInt();
-            System.out.print("Columna: ");
-            int columna = lector.nextInt();
-            //Verificamos que los datos ingresados esten dentro del rango de la matriz.
-            if (fila >= 1 && fila <= filas && columna >= 1 && columna <= columnas) {
-                //Restamos una posicion a la matriz porque no inicia en 1 sino en 0
-                //es decir la primera fila inicia en 0,1 y debemos cambiar a la coordenada ingresada por el usuario.
-                fila--;
-                columna--;
-                // Debemos verificar si la coordenada ingresada es una mina si es se acaba el juego
-                // de lo contrario sigue el juego.
-                if (tableroOculto[fila][columna] == 9) {
-                    tableroVisible[fila + 1][columna + 1] = 'X';
-                    mostrarTablero();
-                    System.out.println("¡Oh no " + nombreJugador + "! Has tenido la mala suerte de seleccionar una mina :(");
-                    System.out.println("Buena suerte la proxima vez " + nombreJugador + " :)");
-                    juegoTerminado = true;
-
-                } else if (tableroVisible[fila + 1][columna + 1] != '*') {
-                    System.out.println("Casilla ya seleccionada. Elige otra.");
-                } else if (tableroOculto[fila][columna] == 0) {
-                    descubrirCasillasVacias(fila, columna);
+            System.out.println("\n Muy bien "+nombreJugador+" elije una de las siguientes opcines:");
+            System.out.println("1. Descubrir casilla");
+            System.out.println("2. Marcar mina");
+            System.out.print("Opción: ");
+            opcion = lector.nextInt();
+            if (opcion == 1) {
+                System.out.print("Fila: ");
+                int fila = lector.nextInt();
+                System.out.print("Columna: ");
+                int columna = lector.nextInt();
+                if (fila >= 1 && fila <= filas && columna >= 1 && columna <= columnas) {
+                    fila--;
+                    columna--;
+                    if (tableroOculto[fila][columna] == 9) {
+                        tableroVisible[fila + 1][columna + 1] = 'X'; // Mina marcada
+                        mostrarTablero();
+                        System.out.println("¡Oh no " + nombreJugador + "! Has tenido la mala suerte de seleccionar una mina :(");
+                        System.out.println("Buena suerte la proxima vez " + nombreJugador + " :)");
+                        juegoTerminado = true;
+                    } else if (tableroVisible[fila + 1][columna + 1] != '*') {
+                        System.out.println("Esta casilla ya ha sido descubierta elige otra.");
+                    } else if (tableroOculto[fila][columna] == 0) {
+                        descubrirCasillasVacias(fila, columna);
+                    } else {
+                        tableroVisible[fila + 1][columna + 1] = (char) (tableroOculto[fila][columna] + '0');
+                    }
                 } else {
-                    tableroVisible[fila + 1][columna + 1] = (char) (tableroOculto[fila][columna] + '0');
+                    System.out.println("Ingresa una posición válida dentro del tablero.");
                 }
-                if (juegoGanado()) {
+            } else if (opcion == 2) {
+                System.out.print("Fila para marcar mina: ");
+                int fila = lector.nextInt();
+                System.out.print("Columna para marcar mina: ");
+                int columna = lector.nextInt();
+                if (fila >= 1 && fila <= filas && columna >= 1 && columna <= columnas) {
+                    fila--;
+                    columna--;
+                    if (tableroVisible[fila + 1][columna + 1] == '*') {
+                        tableroVisible[fila + 1][columna + 1] = 'M'; // Marcar mina
+                    } else {
+                        System.out.println("Esta casilla ya ha sido descubierta elige otra.");
+                    }
+                } else {
+                    System.out.println("Ingresa una posición válida dentro del tablero.");
+                }
+                if (haGanado()) {
                     mostrarTablero();
-                    System.out.println("¡Felicidades, has ganado!");
+                    System.out.println("¡Felicidades, has ganado!"+nombreJugador);
                     juegoTerminado = true;
                 }
             } else {
-                System.out.println("Ingresa una posición válida dentro del tablero.");
+                System.out.println("Ingresa una opción que este dentro del menú; Elige 1 o 2.");
             }
         }
     }
-
     public static void descubrirCasillasVacias(int fila, int columna) {
         if (fila < 0 || fila >= filas || columna < 0 || columna >= columnas || tableroVisible[fila + 1][columna + 1] != '*') {
             return;
@@ -120,7 +136,7 @@ public class JuegoBuscaminas {
         }
     }
 
-    public static boolean juegoGanado() {
+    public static boolean haGanado() {
         for (int i = 0; i < filas; i++) {
             for (int j = 0; j < columnas; j++) {
                 if (tableroVisible[i + 1][j + 1] == '*' && tableroOculto[i][j] != 9) {
@@ -131,7 +147,7 @@ public class JuegoBuscaminas {
         return true;
     }
     public static void mostrarTablero() {
-
+        System.out.println("Este es el tablero en el cuál estas jugando " + nombreJugador + ":");
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 System.out.print("[" + tableroVisible[i][j] + "]");
