@@ -30,7 +30,7 @@ public class JuegoBuscaminas {
                     break;
                 case 2:
                     System.out.println("¡En hora buena " + nombreJugador + "! Es hora de jugar. Prepárate.\n");
-                    inicializarTableros();
+                    inicializacionDeTableroOcultoYVisble();
                     inicioJuego();
                     break;
                 case 3:
@@ -44,7 +44,7 @@ public class JuegoBuscaminas {
         } while (opcion != 3);
     }
 
-    public static void inicializarTableros() {
+    public static void inicializacionDeTableroOcultoYVisble() {
         // Llamamos a la clase Tablero la cual genera un tablero aleatorio
         //y le pasamos sus componentes a la matriz tableroOculto.
         GeneracionTablero objeto = new GeneracionTablero();
@@ -112,7 +112,7 @@ public class JuegoBuscaminas {
                 } else {
                     System.out.println("Ingresa una posición válida dentro del tablero.");
                 }
-                if (haGanado()) {
+                if (juegoGanado()) {
                     mostrarTablero();
                     System.out.println("¡Felicidades, has ganado!"+nombreJugador);
                     juegoTerminado = true;
@@ -136,7 +136,7 @@ public class JuegoBuscaminas {
         }
     }
 
-    public static boolean haGanado() {
+    public static boolean juegoGanado() {
         for (int i = 0; i < filas; i++) {
             for (int j = 0; j < columnas; j++) {
                 if (tableroVisible[i + 1][j + 1] == '*' && tableroOculto[i][j] != 9) {
