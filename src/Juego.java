@@ -1,14 +1,29 @@
 import java.util.Scanner;
+
+/**
+ * Clase que desarrolla la lógica completa del juego.
+ */
 class Juego {
     private String nombreJugador;
     private Tablero tablero;
     private boolean juegoTerminado = false;
 
+    /**
+     * Método constructor
+     * @param nombreJugador nombre del jugador
+     *
+     * Complejidad temporal: complejidad constante O(1)
+     */
     public Juego(String nombreJugador) {
         this.nombreJugador = nombreJugador;
         this.tablero = new Tablero();
     }
 
+    /**
+     * Muestra menú de jugador: Conocer el juego, comenzar el juego o salir.
+     *
+     * Complejidad temporal: Complejidad cuadrática O(N^2) (jugar)
+     */
     public void iniciar() {
         Scanner lector = new Scanner(System.in);
         int opcion;
@@ -41,6 +56,11 @@ class Juego {
         } while (opcion != 3);
     }
 
+    /**
+     * Imprime en consola las reglas del juego
+     *
+     * Complejidad temporal: complejidad constante O(1)
+     */
     private void mostrarReglasDelJuego() {
         System.out.println("\nDebes tener en cuenta las siguientes reglas: \n");
         System.out.println("* El juego consiste en despejar todas las casillas de una pantalla que no oculten una mina.");
@@ -50,6 +70,11 @@ class Juego {
         System.out.println("* Los números 1, 2, 3 indican que alrededor hay 1 mina, 2 o 3, respectivamente.\n");
     }
 
+    /**
+     * Da al jugador la opción de marcar una mina o de descubrir una casilla.
+     *
+     * Complejidad temporal: complejidad cuadrática O(N^2) (descubrirCasilla)
+     */
     private void jugar() {
         while (!juegoTerminado) {
             tablero.mostrarTablero();
@@ -70,6 +95,12 @@ class Juego {
         }
     }
 
+    /**
+     * Se encarga de recibir una coordenada por consola para descubrir esa casilla
+     * y evalua que hacer con métodos de la clase tablero. Luego imprime en consola según el resultado
+     *
+     * COmplejidad temporal: complejidad cuadrática O(N^2)
+     */
     private void descubrirCasilla() {
         Scanner lector = new Scanner(System.in);
         System.out.print("Fila: ");
@@ -90,6 +121,12 @@ class Juego {
         }
     }
 
+    /**
+     * Marca la mina en la posición dada por el usuario por consola. HAce uso de métodos de la clase
+     * tablero para evaluar la posición donde el jugador va a marcar la mina
+     *
+     * Complejidad temporal: complejidad cuadrática O(N^2) (hasGanado)
+     */
     private void marcarMina() {
         Scanner lector = new Scanner(System.in);
         System.out.print("Fila para marcar mina: ");
