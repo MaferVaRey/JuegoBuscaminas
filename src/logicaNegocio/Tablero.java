@@ -1,3 +1,5 @@
+package logicaNegocio;
+
 /**
  * Clase encargada de generar y disponer para el juego los dos tableros
  * (matrices) que serán usados.
@@ -10,7 +12,7 @@ class Tablero {
 
     /**
      * Este método genera las dos matrices que corresponden al juego. EL tablero de juego que
-     * es generado en la clase LogicaCasillas y la segunda que será el tablero visible se generará
+     * es generado en la clase logicaNegocio.LogicaCasillas y la segunda que será el tablero visible se generará
      * con la fila 0 (completa) y la columna 0 (completa) con los números correspondientes a cada fila
      * y cada columna respectivamente. El resto de casillas del tablero visible estará compuestas por *
      *

@@ -1,3 +1,5 @@
+package logicaNegocio;
+
 import java.util.Scanner;
 
 /**

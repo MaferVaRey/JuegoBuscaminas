@@ -1,3 +1,5 @@
+package logicaNegocio;
+
 import java.util.Scanner;
 
 /**
@@ -31,7 +33,7 @@ class Juego {
         do {
             System.out.println("Hola " + nombreJugador + " selecciona una de las siguientes opciones para empezar a jugar.");
             System.out.println("1. Conocer el juego.");
-            System.out.println("2. Comenzar Juego.");
+            System.out.println("2. Comenzar logicaNegocio.Juego.");
             System.out.println("3. Salir.");
             System.out.print("Seleccion: ");
             opcion = lector.nextInt();

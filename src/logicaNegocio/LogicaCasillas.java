@@ -1,3 +1,5 @@
+package logicaNegocio;
+
 import java.util.Random;
 /**
  * Clase que crea el tablero sobre el que se va a jugar
