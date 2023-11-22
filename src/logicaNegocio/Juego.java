@@ -5,16 +5,13 @@ import java.util.Scanner;
 /**
  * Clase que desarrolla la lógica completa del juego.
  */
-class Juego {
+public class Juego {
     private String nombreJugador;
     private Tablero tablero;
     private boolean juegoTerminado = false;
 
     /**
      * Método constructor
-     * @param nombreJugador nombre del jugador
-     *
-     * Complejidad temporal: complejidad constante O(1)
      */
     public Juego(String nombreJugador) {
         this.nombreJugador = nombreJugador;
