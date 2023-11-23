@@ -21,7 +21,7 @@ public class Buscaminas {
         System.out.println("INGRESA TU NOMBRE ");
         String nombreJugador = lector.next();
 
-        Juego juego = new Juego(nombreJugador);
+        Juego juego = new Juego();
         juego.iniciar();
     }
 }

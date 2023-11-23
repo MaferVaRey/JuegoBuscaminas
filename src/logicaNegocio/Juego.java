@@ -6,15 +6,14 @@ import java.util.Scanner;
  * Clase que desarrolla la lógica completa del juego.
  */
 public class Juego {
-    private String nombreJugador;
+
     private Tablero tablero;
     private boolean juegoTerminado = false;
 
     /**
      * Método constructor
      */
-    public Juego(String nombreJugador) {
-        this.nombreJugador = nombreJugador;
+    public Juego() {
         this.tablero = new Tablero();
     }
 
@@ -28,7 +27,7 @@ public class Juego {
         int opcion;
 
         do {
-            System.out.println("Hola " + nombreJugador + " selecciona una de las siguientes opciones para empezar a jugar.");
+            System.out.println("Hola selecciona una de las siguientes opciones para empezar a jugar.");
             System.out.println("1. Conocer el juego.");
             System.out.println("2. Comenzar logicaNegocio.Juego.");
             System.out.println("3. Salir.");
@@ -40,7 +39,7 @@ public class Juego {
                     mostrarReglasDelJuego();
                     break;
                 case 2:
-                    System.out.println("¡En hora buena " + nombreJugador + "! Es hora de jugar. Prepárate.\n");
+                    System.out.println("¡En hora buena! Es hora de jugar. Prepárate.\n");
                     tablero.inicializarTableros();
                     jugar();
                     break;
@@ -77,7 +76,7 @@ public class Juego {
     private void jugar() {
         while (!juegoTerminado) {
             tablero.mostrarTablero();
-            System.out.println("\n Muy bien " + nombreJugador + " elige una de las siguientes opciones:");
+            System.out.println("\n Muy bien elige una de las siguientes opciones:");
             System.out.println("1. Descubrir casilla");
             System.out.println("2. Marcar mina");
             System.out.print("Opción: ");
@@ -111,8 +110,8 @@ public class Juego {
             fila--;
             columna--;
             if (tablero.descubrirCasilla(fila, columna)) {
-                System.out.println("¡Oh no " + nombreJugador + "! Has tenido la mala suerte de seleccionar una mina :(");
-                System.out.println("Buena suerte la próxima vez " + nombreJugador + " :)");
+                System.out.println("¡Oh no! Has tenido la mala suerte de seleccionar una mina :(");
+                System.out.println("Buena suerte la próxima vez :)");
                 juegoTerminado = true;
             }
         } else {
@@ -139,7 +138,7 @@ public class Juego {
             tablero.marcarMina(fila, columna);
             if (tablero.haGanado()) {
                 tablero.mostrarTablero();
-                System.out.println("¡Felicidades, has ganado, " + nombreJugador + "!");
+                System.out.println("¡Felicidades, has ganado!");
                 juegoTerminado = true;
             }
         } else {
