@@ -1,5 +1,6 @@
 package logicaNegocio;
 
+import javax.swing.*;
 import java.util.Scanner;
 
 /**
@@ -144,5 +145,19 @@ public class Juego {
         } else {
             System.out.println("Ingresa una posición válida dentro del tablero.");
         }
+    }
+    public char[][] getTableroVisible() {
+        return tablero.getTableroVisible();
+    }
+
+    public void descubrirCasilla(int fila, int columna) {
+
+    }
+
+    public void marcarMina(int fila, int columna) {
+    }
+
+    public char getEstadoCelda(int i, int j) {
+        return 0;
     }
 }

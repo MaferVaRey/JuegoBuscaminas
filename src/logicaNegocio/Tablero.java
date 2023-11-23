@@ -10,6 +10,27 @@ class Tablero {
     private int[][] tableroOculto = new int[filas][columnas];
     private char[][] tableroVisible = new char[10][10];
 
+    public int[][] getTableroOculto() {
+        return tableroOculto;
+    }
+    public int getValorCelda(int fila, int columna) {
+        return tableroOculto[fila][columna];
+    }
+
+    public char getEstadoCelda(int fila, int columna) {
+        return tableroVisible[fila][columna];
+    }
+    public void setTableroOculto(int[][] tableroOculto) {
+        this.tableroOculto = tableroOculto;
+    }
+
+    public char[][] getTableroVisible() {
+        return tableroVisible;
+    }
+
+    public void setTableroVisible(char[][] tableroVisible) {
+        this.tableroVisible = tableroVisible;
+    }
     /**
      * Este método genera las dos matrices que corresponden al juego. EL tablero de juego que
      * es generado en la clase logicaNegocio.LogicaCasillas y la segunda que será el tablero visible se generará

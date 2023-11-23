@@ -5,26 +5,34 @@ import java.awt.event.ActionListener;
 import java.awt.*;
 
 public class PantallaInicial extends JFrame{
-
     private JPanel panel1;
     private JButton nuevoJuegoButton;
     private JButton reglasButton;
     private JButton salirButton;
+
+    private PanelJuego panelJuego;
+
     public PantallaInicial() {
         setTitle("Pantalla Inicial");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        // Ocupar toda la pantalla
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setUndecorated(true);
-
+        setSize(800, 800);
+        setLocationRelativeTo(null);
         setContentPane(panel1);
 
         nuevoJuegoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 PanelJuego pantallaJuego = new PanelJuego();
+                pantallaJuego.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 pantallaJuego.setVisible(true);
+            }
+        });
+        nuevoJuegoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                PanelJuego pantallaJuego = new PanelJuego();
+                pantallaJuego.setVisible(true);
+                pantallaJuego.setLocationRelativeTo(null);
                 setVisible(false);
             }
         });
@@ -60,10 +68,7 @@ public class PantallaInicial extends JFrame{
         );
         reglasTextArea.setEditable(false);
         reglasFrame.add(reglasTextArea);
-
-        // Centrar la ventana de reglas en relación con la pantalla
         reglasFrame.setLocationRelativeTo(null);
-
         reglasFrame.setSize(600, 300);
         reglasFrame.setVisible(true);
     }
