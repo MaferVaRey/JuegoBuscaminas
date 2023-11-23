@@ -4,7 +4,7 @@ import java.util.Random;
 /**
  * Clase que crea el tablero sobre el que se va a jugar
  */
-class LogicaCasillas {
+public class LogicaCasillas {
 
     /**
      * Atributos de la clase
@@ -65,26 +65,12 @@ class LogicaCasillas {
                         int x = i + dx[k];
                         int y = j + dy[k];
 
-                        if (dentroDeLimites(x, y) && tablero[x][y] != 9) {
+                        if (tablero[x][y] != 9) {
                             tablero[x][y]++;
                         }
                     }
                 }
             }
         }
-    }
-
-    /**
-     * Se encarga de verificar si la posición que se está pidiendo buscar en la matriz
-     * está dentro de los límites de la matriz
-     *
-     * @param x verifica si la posición dada en filas está dentro de la matriz
-     * @param y verifica si la posición dada en columnas está dentro de la matriz
-     * @return False or true dependiendo si la posición si está dentro de la matriz
-     *
-     * Complejidad temporal: Complejidad constante O(1)
-     */
-    private boolean dentroDeLimites(int x, int y) {
-        return x >= 0 && x < filas && y >= 0 && y < columnas;
     }
 }
